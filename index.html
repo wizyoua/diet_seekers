@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <title>Dietseekers</title>
+
+    <!-- Required Stylesheets -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="css/styles.less" />
+
+    <!-- Required Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark ">
+            <a class="navbar-brand" href="#"><img src="images/logo-darkbg.png" alt="Diet Seekers Logo" class="main_logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarNavDropdown" class="navbar-collapse collapse">
+                <ul class="navbar-nav ml-auto" >
+                    <li class="nav-item">
+                        <a class="nav-link" href="#join">Join Today</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#recipes">Recipes</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="caption header_caption">
+            <h1 class="section_header">SUPERCHARGE YOUR DIET TO GET RESULTS FAST.</h1>
+            <p>Simply enter your email below and you will receive free ebooks featuring diet guides, workout tips, and
+                delicious, easy
+                to cook recipes!</p>
+            <p class="yellow_color">As an added BONUS, you'll receive an opportunity for a Free bottle of Grass-Fed, Low Carb
+                Protein!</p>
+            <a href="#join" class="btn btn-info btn-xs cta_button" role="button">Get My EBOOK nOW ></a>
+        </div>
+    </header>
+    
+    <section id="join" >
+        <div class="container">
+            <h1 class="section_header">Let's Get Started</h1>
+            <hr class="section_hr">
+            <div id="app">
+    
+                <!-- index is used to check with current question index -->
+                <div v-for="(question, index) in quiz.questions">
+    
+                    <!-- Hide all questions, show only the one with index === to current question index -->
+                    <div v-show="index === questionIndex">
+                        <div class="row">
+                            <div class="col-md-6"><img v-bind:src="question.image" alt="Card image" class="question_image"></div>
+                            <div class="col-md-6 question_wrapper">
+                                <h2 class="question_title">{{ question.text }}</h2>
+                                <ol class="question_list">
+                                    <li v-for="response in question.responses">
+                                        <label class="inputGroup">
+                                            <!-- The radio button has three new directives -->
+                                            <!-- v-bind:value sets "value" to "true" if the response is correct -->
+                                            <!-- v-bind:name sets "name" to question index to group answers by question -->
+                                            <!-- v-model creates binding with userResponses -->
+                                            <input type="radio"  v-bind:value="response.text" v-bind:name="index" v-model="userResponses[index]"
+                                                class="btn btn-outline-primary" v-bind:id="response.text" required >
+                                            <label for="Male" v-bind:for="response.text">{{response.text}}</label>
+    
+                                        </label>
+                                        
+                                    </li>
+                                </ol>
+                                <!-- The two navigation buttons -->
+                                <!-- Note: prev is hidden on first question -->
+                                <button v-if="questionIndex > 0" v-on:click="prev" class="cta_button">
+                                    prev
+                                </button>
+                                <button v-on:click="next" class="cta_button">
+                                    next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="questionIndex === quiz.questions.length">
+                    <div class="col-md-6 mx-auto">
+                        <h2>Great! Here's your summary:</h2>
+                        <p>You are: {{ $data.userResponses[0] }}</p>
+                        <p>Your age is: {{ $data.userResponses[1] }}</p>
+                        <p>Fitness Goal: {{ $data.userResponses[2] }}</p>
+                        <p>Use any vitamins/supplements: {{ $data.userResponses[3] }}</p>
+                        <p>You are interested in: {{ $data.userResponses[4] }} meals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" >
+        <div class="container">
+            <h1 class="section_header">How it works</h1>
+            <hr class="section_hr">
+            <div class="row">
+                <div class="col-md-6"><img src="images/vegstew.png" alt="" class="full_width_inner_image" style="width:100%;"></div>
+                <div class="col-md-6 about_inner_wrap">
+                    <div >
+                        <h2 class="section_small_header">1. Create Your Profile </h2>
+                        <span style="font-size:14px; font-weight:normal;">Answer a few quick questions so we can fill your dietary
+                            needs the best we can.</span>
+                    </div>
+                    <div >
+                        <h2 class="section_small_header">2. Sign up </h2>
+                        <span>All we need is your email. We will send you recipes and guides, based on your needs.</span>
+                    </div>
+                    <div >
+                        <h2 class="section_small_header">3. Stay Informed </h2>
+                        <span>We'll send you occasional updates and new recipes to try, all for free!</span>
+                    </div>
+                    <a href="#join" class="btn btn-info btn-xs cta_button" role="button">Sign up today!</a>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="recipes">
+        <h1 style="text-align:center;" class="section_header">Look at our Recipes</h1>
+        <hr class="section_hr">
+        <div class="row ">
+            <div class="col-lg-4 col-md-6 col-sm-12 individiual_recipe">
+                <img class="img-thumbnail img-fluid" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/04LDEYRW59.jpg"
+                    alt="">
+                <div class="caption">
+                    <h4 class="section_header">Recipe Name</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 individiual_recipe">
+                <img class="img-thumbnail img-fluid" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/90V03Q5Y60.jpg" alt="">
+                
+                <div class=" caption">
+                    <h4 class="section_header">Recipe Name</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 individiual_recipe">
+                <img class="img-thumbnail img-fluid" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/O83SF2RB6D.jpg" alt="">
+                <div class=" caption">
+                    <h4 class="section_header">Recipe Name</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 individiual_recipe">
+                <img class="img-thumbnail img-fluid" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/5JVPSVP7EI.jpg" alt="">
+                <div class=" caption">
+                    <h4 class="section_header">Recipe Name</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 individiual_recipe">
+                <img class="img-thumbnail img-fluid" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/C5Y10KIIHA.jpg" alt="">
+                <div class=" caption">
+                    <h4 class="section_header">Recipe Name</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 individiual_recipe">
+                <img class="img-thumbnail img-fluid" src="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/YSSFRY5B25.jpg" alt="">
+                <div class=" caption">
+                    <h4 class="section_header">Recipe Name</h4>
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+
+    <section class="bottom_cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 footer_col">
+                    <h1 class="section_header">DISCOVER RECIPES YOU'LL LOVE</h1>
+                    <br>
+                    <p>By signing up, we can keep you informed of the latest recipes and diet tips. You'll always have something new to try!
+</p>
+                    <a href="#join" class="btn btn-info btn-xs cta_button" role="button">Sign up today!</a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer" >
+        <div class="footer-copyright text-center py-3">
+            <a href="https://mdbootstrap.com/bootstrap-tutorial/" class="footer-link">Privacy Policy</a> - <a href="https://mdbootstrap.com/bootstrap-tutorial/" class="footer-link">Terms &amp; Conditions</a>
+        </div>
+        <div class="footer-copyright text-center py-3">All Right reserved on this website, copyright © 2018
+        </div>
+    </footer>
+
+    <!-- Required scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.7.1/less.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/quiz.js"></script>
+
+</body>
+</html>
